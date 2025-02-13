@@ -518,7 +518,7 @@ class ICP:
                 print('[ICP] Iteration %i | Error: %f' % (i+1, error))
                 
 
-def animation_from_positions(positions, parents, offsets=None, silent=True):
+def animation_from_positions(positions, parents, offsets=None, silent=True, iterations=100):
 
     if not isinstance(parents, np.ndarray) and isinstance(parents, list):
         parents = np.array(parents)
@@ -551,7 +551,7 @@ def animation_from_positions(positions, parents, offsets=None, silent=True):
     anim.positions[:,sorted_root_idx] = positions[:,0] # keep root positions. important for IK
 
     # apply IK
-    ik = BasicInverseKinematics(anim, positions, silent=silent, iterations=1)
+    ik = BasicInverseKinematics(anim, positions, silent=silent, iterations=iterations)
     new_anim = ik()
     return new_anim, sorted_order, parents
 
